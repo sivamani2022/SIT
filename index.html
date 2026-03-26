@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIT Puducherry – State Institute for Transformation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--navy:#0a1628;--deep:#112240;--teal:#0d7377;--teal-light:#14a085;--gold:#c8922a;--gold-light:#e8b44b;--cream:#f5f0e8;--white:#ffffff;--text:#1a2942;--muted:#5a6a82;--border:rgba(200,146,42,0.25);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+/* GOV TOPBAR */
+.gov-topbar{background:#1a3a6b;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.1);}
+.gov-topbar-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;}
+.gov-topbar-left{display:flex;align-items:center;gap:12px;}
+.gov-topbar-left span{font-size:10.5px;color:rgba(255,255,255,0.65);letter-spacing:0.2px;}
+.gov-topbar-right{font-size:10px;color:rgba(255,255,255,0.45);}
+.emblem-svg{width:30px;height:30px;flex-shrink:0;}
+
+/* NAV */
+nav{position:sticky;top:0;width:100%;z-index:1000;background:rgba(10,22,40,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,146,42,0.2);}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:66px;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;}
+.sit-logo-svg{width:46px;height:46px;flex-shrink:0;}
+.logo-text{line-height:1;}
+.logo-text strong{display:block;font-size:13.5px;color:var(--gold-light);font-weight:700;letter-spacing:0.2px;}
+.logo-text span{display:block;font-size:9.5px;color:rgba(255,255,255,0.45);font-weight:300;margin-top:2px;}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{display:block;padding:0 14px;height:66px;line-height:66px;color:rgba(255,255,255,0.75);text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:0.3px;transition:color 0.2s;position:relative;cursor:pointer;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:14px;right:14px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s ease;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-light);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-cta{background:linear-gradient(135deg,var(--gold),#a87020);color:white!important;padding:0 16px!important;border-radius:6px;margin:16px 0;height:34px!important;line-height:34px!important;font-size:11.5px!important;cursor:pointer;}
+.nav-cta::after{display:none!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:20px;height:2px;background:rgba(255,255,255,0.7);border-radius:1px;}
+
+/* SECTIONS */
+section{display:none;}
+section.active{display:block;}
+
+/* HOME – full viewport no scroll */
+#home{background:var(--navy);position:relative;overflow:hidden;height:calc(100vh - 35px - 66px);display:none;flex-direction:column;}
+#home.active{display:flex;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 40%,rgba(13,115,119,0.28) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 20% 60%,rgba(200,146,42,0.14) 0%,transparent 50%),linear-gradient(160deg,#0a1628 0%,#112240 50%,#0d1e35 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,146,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(200,146,42,0.06) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%);}
+.hero-inner{position:relative;z-index:2;flex:1;max-width:1280px;width:100%;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,146,42,0.15);border:1px solid rgba(200,146,42,0.35);border-radius:20px;padding:5px 14px;font-size:10px;font-weight:600;color:var(--gold-light);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--gold-light);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.2vw,50px);line-height:1.1;color:white;font-weight:700;margin-bottom:14px;}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--gold-light),var(--teal-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,0.58);max-width:460px;margin-bottom:26px;font-weight:300;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:11px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(13,115,119,0.4);transition:transform 0.2s,box-shadow 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(13,115,119,0.5);}
+.btn-outline{background:transparent;color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.25);padding:11px 24px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold-light);}
+.hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;}
+.stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(200,146,42,0.2);border-radius:12px;padding:18px;position:relative;overflow:hidden;transition:transform 0.2s,border-color 0.2s;}
+.stat-card:hover{transform:translateY(-3px);border-color:rgba(200,146,42,0.5);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--gold));}
+.stat-num{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--gold-light);line-height:1;}
+.stat-label{font-size:10.5px;color:rgba(255,255,255,0.5);margin-top:5px;line-height:1.4;}
+
+/* TICKER */
+.ticker-bar{background:linear-gradient(90deg,var(--teal) 0%,#0a5a5d 100%);padding:7px 0;overflow:hidden;flex-shrink:0;}
+.ticker-inner{display:flex;white-space:nowrap;animation:ticker 30s linear infinite;}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{padding:0 34px;font-size:11px;color:rgba(255,255,255,0.85);font-weight:500;display:inline-flex;align-items:center;gap:10px;}
+.ticker-item::before{content:'◆';color:var(--gold-light);font-size:7px;}
+
+/* SECTION COMMON */
+.section-wrapper{max-width:1280px;margin:0 auto;padding:65px 2rem;}
+.section-header{text-align:center;margin-bottom:48px;}
+.section-tag{display:inline-block;background:linear-gradient(135deg,rgba(13,115,119,0.15),rgba(200,146,42,0.1));border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:600;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,40px);color:var(--navy);font-weight:700;line-height:1.15;margin-bottom:12px;}
+.section-desc{font-size:14.5px;color:var(--muted);max-width:580px;margin:0 auto;line-height:1.7;font-weight:300;}
+
+/* ABOUT */
+#about{background:var(--white);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+.about-img-wrap{background:linear-gradient(135deg,var(--navy),var(--deep));border-radius:20px;padding:34px;position:relative;overflow:hidden;}
+.about-img-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,rgba(13,115,119,0.3) 0%,transparent 60%);}
+.about-emblem{position:relative;z-index:1;text-align:center;padding:14px;}
+.emblem-ring{width:175px;height:175px;margin:0 auto;border-radius:50%;background:conic-gradient(from 0deg,var(--teal),var(--gold),var(--teal-light),var(--gold-light),var(--teal));padding:3px;animation:spin 20s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.emblem-inner{width:100%;height:100%;border-radius:50%;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;animation:counter-spin 20s linear infinite;}
+@keyframes counter-spin{to{transform:rotate(-360deg)}}
+.emblem-inner .sit-text{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:var(--gold-light);line-height:1;}
+.emblem-inner .sit-sub{font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.about-info-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.info-pill{background:rgba(13,115,119,0.08);border:1px solid rgba(13,115,119,0.2);border-radius:10px;padding:11px 13px;font-size:11px;color:var(--teal);font-weight:500;text-align:center;line-height:1.4;}
+.about-content h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:16px;line-height:1.2;}
+.about-content p{font-size:13.5px;color:var(--muted);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.about-features{margin-top:22px;display:flex;flex-direction:column;gap:11px;}
+.feature-item{display:flex;align-items:flex-start;gap:12px;padding:13px;background:var(--cream);border-radius:10px;border-left:3px solid var(--teal);}
+.feature-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--teal-light));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.feature-text strong{display:block;font-size:12.5px;color:var(--navy);margin-bottom:2px;}
+.feature-text span{font-size:11px;color:var(--muted);line-height:1.5;}
+
+/* SECTORS */
+#sectors{background:linear-gradient(170deg,#f0ece2 0%,var(--cream) 100%);}
+.sectors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.sector-card{background:white;border-radius:14px;padding:22px 18px;border:1px solid rgba(0,0,0,0.06);transition:all 0.3s;position:relative;overflow:hidden;cursor:pointer;}
+.sector-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--teal),var(--navy));opacity:0;transition:opacity 0.3s;}
+.sector-card:hover::before{opacity:1;}
+.sector-card:hover .sector-num,.sector-card:hover .sector-name,.sector-card:hover .sector-desc{color:rgba(255,255,255,0.88);}
+.sector-card:hover .sector-icon-wrap{background:rgba(255,255,255,0.15);}
+.sector-card>*{position:relative;z-index:1;}
+.sector-icon-wrap{width:46px;height:46px;border-radius:11px;background:linear-gradient(135deg,rgba(13,115,119,0.12),rgba(200,146,42,0.1));display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;transition:background 0.3s;}
+.sector-num{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--teal);font-weight:500;letter-spacing:1px;margin-bottom:5px;transition:color 0.3s;}
+.sector-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:7px;line-height:1.3;transition:color 0.3s;}
+.sector-desc{font-size:11px;color:var(--muted);line-height:1.6;transition:color 0.3s;}
+
+/* INITIATIVES – Accordion */
+#initiatives{background:var(--navy);}
+#initiatives .section-title{color:white;}
+#initiatives .section-tag{color:var(--gold-light);}
+#initiatives .section-desc{color:rgba(255,255,255,0.5);}
+.accordion-wrap{display:flex;flex-direction:column;gap:0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);}
+.accordion-item{border-bottom:1px solid rgba(255,255,255,0.08);}
+.accordion-item:last-child{border-bottom:none;}
+.accordion-header{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;background:rgba(255,255,255,0.03);transition:background 0.2s;user-select:none;}
+.accordion-header:hover{background:rgba(13,115,119,0.15);}
+.accordion-header.open{background:rgba(13,115,119,0.2);}
+.accordion-num{width:30px;height:30px;border-radius:7px;flex-shrink:0;background:linear-gradient(135deg,var(--teal),var(--teal-light));display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:white;}
+.accordion-title{flex:1;font-size:13.5px;font-weight:600;color:white;}
+.accordion-icon{font-size:18px;color:var(--gold-light);transition:transform 0.3s;flex-shrink:0;}
+.accordion-header.open .accordion-icon{transform:rotate(45deg);}
+.accordion-body{display:none;padding:0 22px 22px;background:rgba(255,255,255,0.02);}
+.accordion-body.open{display:block;}
+.accordion-inner{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;padding-top:18px;}
+.accordion-image{border-radius:12px;overflow:hidden;position:relative;height:190px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;}
+.acc-img-1{background:linear-gradient(135deg,#0a3d62,#1e5f74);}
+.acc-img-2{background:linear-gradient(135deg,#0d4f4f,#1a7a6b);}
+.acc-img-3{background:linear-gradient(135deg,#2c3e50,#2471a3);}
+.acc-img-4{background:linear-gradient(135deg,#4a1942,#8e1f7a);}
+.acc-img-5{background:linear-gradient(135deg,#1a3a0a,#2e7d32);}
+.acc-img-6{background:linear-gradient(135deg,#3e1f00,#c8500a);}
+.accordion-image::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,0.03) 0,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 20px);}
+.acc-img-icon{font-size:50px;position:relative;z-index:1;}
+.acc-img-label{font-size:10px;color:rgba(255,255,255,0.6);font-weight:500;letter-spacing:1.2px;text-transform:uppercase;position:relative;z-index:1;}
+/* SVG illustration inside accordion image */
+.acc-svg-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.accordion-points{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.accordion-points li{display:flex;gap:10px;font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1.6;}
+.accordion-points li::before{content:'→';color:var(--teal-light);font-weight:700;flex-shrink:0;}
+
+/* PUBLICATIONS */
+#publications{background:var(--white);}
+.pub-filters{display:flex;gap:8px;justify-content:center;margin-bottom:42px;flex-wrap:wrap;}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;font-size:12px;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.filter-btn.active,.filter-btn:hover{background:var(--teal);color:white;border-color:var(--teal);}
+.pub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pub-card{background:var(--cream);border-radius:13px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);transition:all 0.3s;}
+.pub-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(0,0,0,0.08);}
+.pub-top{height:128px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pub-card:nth-child(1) .pub-top{background:linear-gradient(135deg,#0a3d62,#1a6da0);}
+.pub-card:nth-child(2) .pub-top{background:linear-gradient(135deg,#1e3c0a,#3a7a15);}
+.pub-card:nth-child(3) .pub-top{background:linear-gradient(135deg,#4a1e0a,#a03a15);}
+.pub-card:nth-child(4) .pub-top{background:linear-gradient(135deg,#0a2e4a,#0d7377);}
+.pub-card:nth-child(5) .pub-top{background:linear-gradient(135deg,#3a0a4a,#7a15a0);}
+.pub-card:nth-child(6) .pub-top{background:linear-gradient(135deg,#4a3a0a,#a08015);}
+.pub-icon-large{font-size:42px;opacity:0.6;}
+.pub-type-tag{position:absolute;top:11px;left:11px;background:rgba(255,255,255,0.15);border-radius:4px;font-size:9px;color:white;padding:3px 7px;font-weight:600;letter-spacing:1px;}
+.pub-body{padding:18px;}
+.pub-meta{font-size:10px;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace;}
+.pub-title{font-family:'Playfair Display',serif;font-size:14.5px;color:var(--navy);font-weight:700;margin-bottom:8px;line-height:1.4;}
+.pub-excerpt{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.pub-link{font-size:11.5px;color:var(--teal);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;}
+.pub-link:hover{gap:9px;}
+
+/* CONTACT */
+#contact{background:linear-gradient(170deg,var(--cream) 0%,#e8e2d4 100%);}
+.contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:50px;}
+.contact-info h2{font-family:'Playfair Display',serif;font-size:30px;color:var(--navy);font-weight:700;margin-bottom:12px;line-height:1.2;}
+.contact-info>p{font-size:13.5px;color:var(--muted);line-height:1.8;margin-bottom:26px;font-weight:300;}
+.contact-cards{display:flex;flex-direction:column;gap:12px;}
+.contact-card{background:white;border-radius:11px;padding:16px 18px;display:flex;align-items:center;gap:12px;border:1px solid rgba(0,0,0,0.06);transition:transform 0.2s;}
+.contact-card:hover{transform:translateX(4px);}
+.contact-card-icon{width:38px;height:38px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.contact-card-icon.teal{background:rgba(13,115,119,0.12);}
+.contact-card-icon.gold{background:rgba(200,146,42,0.12);}
+.contact-card-icon.navy{background:rgba(10,22,40,0.08);}
+.contact-card-text strong{display:block;font-size:10.5px;color:var(--muted);font-weight:500;margin-bottom:2px;}
+.contact-card-text span{font-size:13px;color:var(--navy);font-weight:600;}
+.contact-form-wrap{background:white;border-radius:16px;padding:32px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.06);}
+.contact-form-wrap h3{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);margin-bottom:22px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:11px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 13px;background:var(--cream);border:1px solid rgba(0,0,0,0.1);border-radius:7px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--teal);}
+.form-group textarea{resize:vertical;min-height:85px;}
+.submit-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(13,115,119,0.35);transition:transform 0.2s;}
+.submit-btn:hover{transform:translateY(-2px);}
+
+/* FOOTER */
+.site-footer{background:var(--navy);border-top:1px solid rgba(200,146,42,0.15);}
+.footer-main{max-width:1280px;margin:0 auto;padding:42px 2rem 26px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr auto;gap:40px;}
+.footer-brand .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.footer-brand p{font-size:11.5px;color:rgba(255,255,255,0.38);line-height:1.8;font-weight:300;}
+.footer-col h4{font-size:10.5px;font-weight:700;color:var(--gold-light);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:13px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li a{font-size:11.5px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;cursor:pointer;}
+.footer-col ul li a:hover{color:var(--gold-light);}
+.footer-qr{display:flex;flex-direction:column;gap:10px;}
+.footer-qr h4{font-size:10.5px;font-weight:700;color:var(--gold-light);letter-spacing:1.5px;text-transform:uppercase;}
+.qr-box{background:white;padding:7px;border-radius:8px;width:108px;height:108px;display:flex;align-items:center;justify-content:center;}
+#qrcode canvas,#qrcode img,#qrcode2 canvas,#qrcode2 img{width:94px!important;height:94px!important;}
+.qr-label{font-size:10px;color:rgba(255,255,255,0.38);text-align:center;line-height:1.5;}
+.footer-disclaimer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.06);padding:12px 2rem;}
+.footer-disclaimer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:flex-start;gap:10px;}
+.disclaimer-icon{font-size:13px;color:var(--gold-light);flex-shrink:0;margin-top:2px;}
+.disclaimer-text{font-size:10.5px;color:rgba(255,255,255,0.33);line-height:1.7;}
+.disclaimer-text strong{color:rgba(255,255,255,0.52);font-weight:600;}
+.footer-bottom{background:rgba(0,0,0,0.4);border-top:1px solid rgba(255,255,255,0.05);padding:10px 2rem;}
+.footer-bottom-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{font-size:10.5px;color:rgba(255,255,255,0.26);}
+.footer-badges{display:flex;gap:7px;}
+.footer-badge{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:3px 8px;font-size:9.5px;color:rgba(255,255,255,0.33);}
+
+/* HOME pillars + team (within home section, before ticker) */
+.home-content{background:var(--navy);}
+
+@media(max-width:900px){
+.hamburger{display:flex;}
+.nav-links{display:none;position:fixed;top:101px;left:0;right:0;background:var(--navy);flex-direction:column;padding:10px 0;border-bottom:1px solid rgba(200,146,42,0.2);}
+.nav-links.open{display:flex;}
+.nav-links a{height:40px;line-height:40px;padding:0 20px;}
+.nav-links a::after{display:none;}
+.hero-inner{grid-template-columns:1fr;gap:28px;}
+.hero-stats{grid-template-columns:1fr 1fr;}
+.about-grid,.contact-layout{grid-template-columns:1fr;}
+.sectors-grid{grid-template-columns:repeat(2,1fr);}
+.pub-grid{grid-template-columns:1fr;}
+.footer-main{grid-template-columns:1fr 1fr;}
+.form-row{grid-template-columns:1fr;}
+.accordion-inner{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- GOV TOPBAR -->
+<div class="gov-topbar">
+  <div class="gov-topbar-inner">
+    <div class="gov-topbar-left">
+      <!-- India Ashoka Pillar Emblem -->
+      <svg class="emblem-svg" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+        <rect x="12" y="72" width="56" height="7" rx="2" fill="#f5c842"/>
+        <rect x="17" y="79" width="46" height="5" rx="1" fill="#e0b030"/>
+        <circle cx="40" cy="57" r="14" fill="none" stroke="#f5c842" stroke-width="2"/>
+        <circle cx="40" cy="57" r="2.5" fill="#f5c842"/>
+        <g stroke="#f5c842" stroke-width="0.8">
+          <line x1="40" y1="43" x2="40" y2="46.5"/><line x1="40" y1="67.5" x2="40" y2="71"/>
+          <line x1="26" y1="57" x2="29.5" y2="57"/><line x1="50.5" y1="57" x2="54" y2="57"/>
+          <line x1="30.1" y1="47.1" x2="32.1" y2="49.1"/><line x1="47.9" y1="64.9" x2="49.9" y2="66.9"/>
+          <line x1="49.9" y1="47.1" x2="47.9" y2="49.1"/><line x1="32.1" y1="64.9" x2="30.1" y2="66.9"/>
+          <line x1="34.5" y1="43.8" x2="35.4" y2="46.8"/><line x1="44.6" y1="67.2" x2="45.5" y2="70.2"/>
+          <line x1="45.5" y1="43.8" x2="44.6" y2="46.8"/><line x1="35.4" y1="67.2" x2="34.5" y2="70.2"/>
+          <line x1="26.8" y1="51.5" x2="29.8" y2="52.4"/><line x1="50.2" y1="61.6" x2="53.2" y2="62.5"/>
+          <line x1="26.8" y1="62.5" x2="29.8" y2="61.6"/><line x1="50.2" y1="52.4" x2="53.2" y2="51.5"/>
+        </g>
+        <!-- Lions base -->
+        <ellipse cx="40" cy="42" rx="9" ry="5" fill="#f5c842"/>
+        <ellipse cx="28" cy="51" rx="7" ry="4" fill="#f5c842" transform="rotate(-25 28 51)"/>
+        <ellipse cx="52" cy="51" rx="7" ry="4" fill="#f5c842" transform="rotate(25 52 51)"/>
+        <ellipse cx="40" cy="38" rx="5" ry="3.5" fill="#d4a020"/>
+        <text x="40" y="88" text-anchor="middle" font-size="7" fill="#f5c842" font-family="serif" font-weight="bold">INDIA</text>
+      </svg>
+
+      <span>भारत सरकार · Government of India &nbsp;|&nbsp; Puducherry UT</span>
+
+      <!-- Puducherry Aayi Madapam (Temple Gopuram) -->
+      <svg class="emblem-svg" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+        <rect x="22" y="65" width="36" height="18" rx="2" fill="#3a7bd5"/>
+        <rect x="27" y="56" width="26" height="12" rx="2" fill="#4a8fe8"/>
+        <rect x="31" y="48" width="18" height="11" rx="2" fill="#3a7bd5"/>
+        <rect x="34" y="40" width="12" height="11" rx="2" fill="#4a8fe8"/>
+        <rect x="36" y="33" width="8" height="10" rx="2" fill="#3a7bd5"/>
+        <polygon points="40,14 33,33 47,33" fill="#4a8fe8"/>
+        <polygon points="40,8 37,16 43,16" fill="#3a7bd5"/>
+        <ellipse cx="40" cy="7" rx="4" ry="5" fill="#f5c842"/>
+        <ellipse cx="40" cy="3.5" rx="2.5" ry="1.5" fill="#e0a820"/>
+        <rect x="37" y="69" width="6" height="12" rx="1" fill="#1a4a9a"/>
+        <rect x="25" y="68" width="5" height="8" rx="1" fill="#1a4a9a"/>
+        <rect x="50" y="68" width="5" height="8" rx="1" fill="#1a4a9a"/>
+        <path d="M25,65 Q27.5,59 30,65" fill="none" stroke="#f5c842" stroke-width="1.2"/>
+        <path d="M50,65 Q52.5,59 55,65" fill="none" stroke="#f5c842" stroke-width="1.2"/>
+        <text x="40" y="88" text-anchor="middle" font-size="6.5" fill="#3a7bd5" font-family="serif" font-weight="bold">PUDUCHERRY</text>
+      </svg>
+    </div>
+    <div class="gov-topbar-right">Planning &amp; Research Dept. · Govt. of Puducherry</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <!-- SIT LOGO -->
+    <div class="nav-logo" onclick="showSection('home')">
+      <svg class="sit-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0d7377"/><stop offset="100%" stop-color="#14a085"/></linearGradient>
+          <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c8922a"/><stop offset="100%" stop-color="#e8b44b"/></linearGradient>
+          <linearGradient id="g3" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0a1628"/><stop offset="100%" stop-color="#112240"/></linearGradient>
+        </defs>
+        <!-- Outer decorative ring -->
+        <circle cx="60" cy="60" r="57" fill="url(#g3)"/>
+        <circle cx="60" cy="60" r="57" fill="none" stroke="url(#g2)" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.8"/>
+        <!-- Teal arc (top half) -->
+        <path d="M 18 60 A 42 42 0 0 1 102 60" fill="none" stroke="url(#g1)" stroke-width="5" stroke-linecap="round"/>
+        <!-- Gold arc (bottom half) -->
+        <path d="M 18 60 A 42 42 0 0 0 102 60" fill="none" stroke="url(#g2)" stroke-width="5" stroke-linecap="round"/>
+        <!-- Inner background circle -->
+        <circle cx="60" cy="60" r="35" fill="#0a1628"/>
+        <!-- SIT text -->
+        <text x="60" y="55" text-anchor="middle" font-family="Georgia,serif" font-weight="900" font-size="22" fill="url(#g2)" letter-spacing="-0.5">SIT</text>
+        <!-- Horizontal divider -->
+        <line x1="38" y1="60" x2="82" y2="60" stroke="rgba(200,146,42,0.3)" stroke-width="0.8"/>
+        <!-- Subtitle -->
+        <text x="60" y="70" text-anchor="middle" font-family="Arial,sans-serif" font-weight="600" font-size="6" fill="rgba(255,255,255,0.6)" letter-spacing="1.8">PUDUCHERRY</text>
+        <!-- Corner diamonds -->
+        <polygon points="60,4 63,8 60,12 57,8" fill="#e8b44b"/>
+        <polygon points="60,108 63,112 60,116 57,112" fill="#0d7377"/>
+        <polygon points="4,60 8,63 12,60 8,57" fill="#e8b44b"/>
+        <polygon points="108,60 112,63 116,60 112,57" fill="#0d7377"/>
+        <!-- Tagline along bottom arc -->
+        <path id="tagArc" d="M 24 78 A 42 42 0 0 0 96 78" fill="none"/>
+        <text font-size="5.5" fill="rgba(255,255,255,0.38)" font-family="Arial,sans-serif" letter-spacing="1.5">
+          <textPath href="#tagArc" startOffset="8%">TRANSFORM · INNOVATE · GROW</textPath>
+        </text>
+      </svg>
+      <div class="logo-text">
+        <strong>State Institute for Transformation</strong>
+        <span>Government of Puducherry · NITI Aayog SSM</span>
+      </div>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a class="active" onclick="showSection('home')">Home</a></li>
+      <li><a onclick="showSection('about')">About Us</a></li>
+      <li><a onclick="showSection('sectors')">Sectors</a></li>
+      <li><a onclick="showSection('initiatives')">Initiatives</a></li>
+      <li><a onclick="showSection('publications')">Publications</a></li>
+      <li><a class="nav-cta" onclick="showSection('contact')">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HOME – no scroll, fits viewport -->
+<section id="home" class="active">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">Established under NITI Aayog SSM</div>
+      <h1 class="hero-title">Transforming<br><em>Puducherry</em><br>for Viksit Bharat</h1>
+      <p class="hero-sub">A high-level institutional mechanism driving strategic planning, policy innovation and evidence-based governance for Puducherry — aligned with <strong style="color:rgba(255,255,255,0.85)">Viksit Bharat @2047</strong>.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" onclick="showSection('about')">Explore SIT →</a>
+        <a class="btn-outline" onclick="showSection('sectors')">Our Sectors</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">8</div><div class="stat-label">Priority Sectors for Policy Intervention</div></div>
+      <div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Lead Knowledge Institution — Pondicherry University</div></div>
+      <div class="stat-card"><div class="stat-num">11</div><div class="stat-label">Multi-disciplinary Programme Team Members</div></div>
+      <div class="stat-card"><div class="stat-num">2047</div><div class="stat-label">Viksit Bharat Vision Alignment Year</div></div>
+    </div>
+  </div>
+  <div class="ticker-bar">
+    <div class="ticker-inner">
+      <span class="ticker-item">SIT Puducherry launched under NITI Aayog State Support Mission</span>
+      <span class="ticker-item">Pondicherry University designated as Lead Knowledge Institution</span>
+      <span class="ticker-item">8 Priority Sectors identified for transformation</span>
+      <span class="ticker-item">Programme Implementation Team being constituted</span>
+      <span class="ticker-item">State Knowledge Repository under development</span>
+      <span class="ticker-item">SIT Puducherry launched under NITI Aayog State Support Mission</span>
+      <span class="ticker-item">Pondicherry University designated as Lead Knowledge Institution</span>
+      <span class="ticker-item">8 Priority Sectors identified for transformation</span>
+      <span class="ticker-item">Programme Implementation Team being constituted</span>
+      <span class="ticker-item">State Knowledge Repository under development</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrapper" style="padding-top:95px;">
+    <div class="about-grid">
+      <div>
+        <div class="about-img-wrap">
+          <div class="about-emblem">
+            <div class="emblem-ring"><div class="emblem-inner"><div class="sit-text">SIT</div><div class="sit-sub">Puducherry</div></div></div>
+          </div>
+        </div>
+        <div class="about-info-cards">
+          <div class="info-pill">Planning &amp; Research Dept.<br>Govt. of Puducherry</div>
+          <div class="info-pill">NITI Aayog<br>State Support Mission</div>
+          <div class="info-pill">Pondicherry University<br>Lead Knowledge Partner</div>
+          <div class="info-pill">Viksit Bharat<br>@2047 Aligned</div>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-tag">About Us</div>
+        <h2>A High-Level Institutional Mechanism for Transformation</h2>
+        <p>The State Institution for Transformation (SIT) in the Union Territory of Puducherry was established under the State Support Mission (SSM) of NITI Aayog, Government of India. It serves as a high-level institutional mechanism to drive strategic planning, policy innovation, and implementation support for key developmental priorities of the Union Territory.</p>
+        <p>Under the State Support Mission, technical and financial assistance is provided to the SIT for the design, planning, and execution of transformative initiatives contributing to the socio-economic advancement of Puducherry. The Institution aims to strengthen data-driven governance, promote inter-sectoral coordination, and facilitate evidence-based policymaking aligned with the vision of Viksit Bharat @2047.</p>
+        <p>To enhance the knowledge and research ecosystem, Pondicherry University has been designated as the Lead Knowledge Institution, leveraging expertise and technical capabilities of other reputed academic and research organizations to support SIT's thematic activities and studies.</p>
+        <div class="about-features">
+          <div class="feature-item"><div class="feature-icon">📊</div><div class="feature-text"><strong>Data-Driven Governance</strong><span>Strengthen evidence-based decision-making through surveys, dashboards, and a State Knowledge Repository.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🔗</div><div class="feature-text"><strong>Inter-Sectoral Coordination</strong><span>Facilitate collaboration across government departments, academia, and research institutions.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🏛️</div><div class="feature-text"><strong>Policy Innovation</strong><span>Evidence-based policymaking aligned with the vision of Viksit Bharat @2047.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand"><div class="footer-logo"><svg width="34" height="34" viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="#0a1628"/><circle cx="60" cy="60" r="57" fill="none" stroke="#e8b44b" stroke-width="1.5" stroke-dasharray="6,3"/><text x="60" y="67" text-anchor="middle" font-family="Georgia,serif" font-weight="900" font-size="26" fill="#e8b44b">SIT</text></svg><div class="logo-text"><strong>State Institute for Transformation</strong><span>Puducherry UT</span></div></div><p>Established under NITI Aayog's State Support Mission, functioning under the Planning and Research Department, Government of Puducherry. Driving strategic planning, policy innovation, and evidence-based governance.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><ul><li><a onclick="showSection('home')">Home</a></li><li><a onclick="showSection('about')">About Us</a></li><li><a onclick="showSection('sectors')">Sectors</a></li><li><a onclick="showSection('initiatives')">Initiatives</a></li><li><a onclick="showSection('publications')">Publications</a></li></ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul><li><a onclick="showSection('sectors')">Economics &amp; Finance</a></li><li><a onclick="showSection('sectors')">Tourism</a></li><li><a onclick="showSection('sectors')">Infrastructure</a></li><li><a onclick="showSection('sectors')">Education</a></li><li><a onclick="showSection('sectors')">Climate &amp; Environment</a></li></ul></div>
+      <div class="footer-col"><h4>Links</h4><ul><li><a>NITI Aayog</a></li><li><a>Govt. of Puducherry</a></li><li><a>Pondicherry University</a></li><li><a>Planning &amp; Research Dept.</a></li><li><a onclick="showSection('contact')">Contact Us</a></li></ul></div>
+      <div class="footer-qr"><h4>Scan QR</h4><div class="qr-box"><div id="qrcode"></div></div><div class="qr-label">Scan to visit<br>SIT Puducherry</div></div>
+    </div>
+    <div class="footer-disclaimer"><div class="footer-disclaimer-inner"><span class="disclaimer-icon">⚠️</span><div class="disclaimer-text"><strong>Disclaimer:</strong> This website is published and maintained by the State Institute for Transformation (SIT), Planning and Research Department, Government of Puducherry. The information provided is intended for general informational purposes only. While every effort has been made to ensure accuracy and completeness, SIT does not warrant the reliability of the content. The Government of Puducherry reserves the right to modify or withdraw information at any time without notice. External links do not constitute endorsement by SIT or the Government of Puducherry. For official policy documents, please refer to the Gazette of Puducherry or contact the relevant department directly.</div></div></div>
+    <div class="footer-bottom"><div class="footer-bottom-inner"><p>© 2025 State Institute for Transformation, Puducherry. All rights reserved. Last Updated: March 2025</p><div class="footer-badges"><span class="footer-badge">NITI Aayog SSM</span><span class="footer-badge">Govt. of Puducherry</span><span class="footer-badge">Viksit Bharat @2047</span></div></div></div>
+  </footer>
+</section>
+
+<!-- SECTORS -->
+<section id="sectors">
+  <div class="section-wrapper" style="padding-top:95px;">
+    <div class="section-header">
+      <div class="section-tag">Priority Areas</div>
+      <h2 class="section-title">Eight Sectors of Transformation</h2>
+      <p class="section-desc">The Government of Puducherry has identified these priority areas for focused policy intervention and socio-economic advancement.</p>
+    </div>
+    <div class="sectors-grid">
+      <div class="sector-card"><div class="sector-icon-wrap">💰</div><div class="sector-num">SECTOR 01</div><div class="sector-name">Economics &amp; Finance</div><p class="sector-desc">Strengthening fiscal management, resource mobilization, and economic resilience of the Union Territory.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">🏖️</div><div class="sector-num">SECTOR 02</div><div class="sector-name">Tourism</div><p class="sector-desc">Developing Puducherry's unique heritage and coastal assets into a world-class tourism destination.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">🏗️</div><div class="sector-num">SECTOR 03</div><div class="sector-name">Infrastructure &amp; Industry</div><p class="sector-desc">Building resilient infrastructure and enabling industrial growth to attract investment and employment.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">📚</div><div class="sector-num">SECTOR 04</div><div class="sector-name">Social Sector (Education)</div><p class="sector-desc">Enhancing education quality, access, and outcomes to build a skilled and empowered citizenry.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">💡</div><div class="sector-num">SECTOR 05</div><div class="sector-name">Technology &amp; Entrepreneurship</div><p class="sector-desc">Fostering an innovation-led startup ecosystem and leveraging technology for economic transformation.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">🏙️</div><div class="sector-num">SECTOR 06</div><div class="sector-name">Urban Governance &amp; Development</div><p class="sector-desc">Creating livable, inclusive urban spaces with smart city principles and effective local governance.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">🖥️</div><div class="sector-num">SECTOR 07</div><div class="sector-name">IT &amp; Data Analytics</div><p class="sector-desc">Leveraging digital infrastructure and analytics to power smarter governance and service delivery.</p></div>
+      <div class="sector-card"><div class="sector-icon-wrap">🌿</div><div class="sector-num">SECTOR 08</div><div class="sector-name">Climate Change &amp; Environment</div><p class="sector-desc">Advancing environmental sustainability and climate resilience through green policies and conservation.</p></div>
+    </div>
+  </div>
+  <footer class="site-footer"><div class="footer-disclaimer"><div class="footer-disclaimer-inner"><span class="disclaimer-icon">⚠️</span><div class="disclaimer-text"><strong>Disclaimer:</strong> This website is maintained by the State Institute for Transformation (SIT), Planning and Research Department, Government of Puducherry. Information is for general purposes only. SIT reserves the right to modify content without prior notice.</div></div></div><div class="footer-bottom"><div class="footer-bottom-inner"><p>© 2025 State Institute for Transformation, Puducherry. All rights reserved.</p><div class="footer-badges"><span class="footer-badge">NITI Aayog SSM</span><span class="footer-badge">Govt. of Puducherry</span></div></div></div></footer>
+</section>
+
+<!-- INITIATIVES -->
+<section id="initiatives">
+  <div class="section-wrapper" style="padding-top:95px;">
+    <div class="section-header">
+      <div class="section-tag" style="color:var(--gold-light)">Our Work</div>
+      <h2 class="section-title" style="color:white">Key Initiatives</h2>
+      <p class="section-desc" style="color:rgba(255,255,255,0.5)">SIT operationalizes its mandate through targeted programmes and institutional mechanisms.</p>
+    </div>
+    <div class="accordion-wrap">
+
+      <div class="accordion-item">
+        <div class="accordion-header open" onclick="toggleAcc(this)">
+          <div class="accordion-num">01</div>
+          <div class="accordion-title">State Knowledge Repository</div>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body open">
+          <div class="accordion-inner">
+            <div class="accordion-image acc-img-1">
+              <div class="acc-svg-wrap">
+                <svg width="90" height="80" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="15" width="80" height="55" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                  <rect x="12" y="25" width="30" height="4" rx="2" fill="#e8b44b" opacity="0.8"/>
+                  <rect x="12" y="33" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/>
+                  <rect x="12" y="40" width="26" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/>
+                  <rect x="12" y="47" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/>
+                  <rect x="50" y="25" width="28" height="36" rx="3" fill="rgba(13,115,119,0.4)" stroke="rgba(20,160,133,0.5)" stroke-width="1"/>
+                  <rect x="54" y="30" width="20" height="2.5" rx="1" fill="#14a085"/>
+                  <rect x="54" y="36" width="16" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="54" y="41" width="18" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="54" y="46" width="14" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="45" cy="10" r="6" fill="#e8b44b" opacity="0.9"/>
+                  <text x="45" y="13.5" text-anchor="middle" font-size="8" fill="#0a1628" font-weight="bold">🗄</text>
+                </svg>
+                <div class="acc-img-label">State Knowledge Repository</div>
+              </div>
+            </div>
+            <ul class="accordion-points">
+              <li>Centralised database of socio-economic indicators across all 8 priority sectors</li>
+              <li>Integration with national platforms including NITI Aayog and MoSPI</li>
+              <li>Open-access data portal for researchers, policymakers, and citizens</li>
+              <li>Real-time data feeds from departments for continuous monitoring</li>
+              <li>Historical archiving for trend analysis and longitudinal studies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <div class="accordion-num">02</div>
+          <div class="accordion-title">Dashboard Development</div>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <div class="accordion-image acc-img-2">
+              <div class="acc-svg-wrap">
+                <svg width="110" height="80" viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="8" width="100" height="62" rx="5" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                  <rect x="12" y="16" width="25" height="45" rx="3" fill="rgba(13,115,119,0.3)"/>
+                  <rect x="15" y="44" width="19" height="14" rx="2" fill="#0d7377" opacity="0.8"/>
+                  <rect x="15" y="38" width="19" height="7" rx="2" fill="#14a085" opacity="0.6"/>
+                  <rect x="42" y="16" width="25" height="45" rx="3" fill="rgba(200,146,42,0.2)"/>
+                  <rect x="45" y="36" width="19" height="22" rx="2" fill="#c8922a" opacity="0.8"/>
+                  <rect x="45" y="28" width="19" height="10" rx="2" fill="#e8b44b" opacity="0.5"/>
+                  <rect x="72" y="16" width="25" height="45" rx="3" fill="rgba(255,255,255,0.08)"/>
+                  <rect x="75" y="40" width="19" height="18" rx="2" fill="#5ba3e8" opacity="0.7"/>
+                  <rect x="75" y="32" width="19" height="10" rx="2" fill="#4a90d9" opacity="0.5"/>
+                </svg>
+                <div class="acc-img-label">Performance Dashboards</div>
+              </div>
+            </div>
+            <ul class="accordion-points">
+              <li>Sector-wise performance dashboards for all 8 priority areas</li>
+              <li>Live data visualisation for senior government leadership</li>
+              <li>Customisable views for departmental monitoring</li>
+              <li>Benchmarking against national and state comparators</li>
+              <li>Automated alerts for performance deviations and targets</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <div class="accordion-num">03</div>
+          <div class="accordion-title">Field Surveys &amp; Data Collection</div>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <div class="accordion-image acc-img-3">
+              <div class="acc-svg-wrap">
+                <svg width="100" height="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="28" y="10" width="44" height="58" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <rect x="33" y="18" width="34" height="4" rx="2" fill="#e8b44b" opacity="0.9"/>
+                  <rect x="33" y="26" width="28" height="2.5" rx="1" fill="rgba(255,255,255,0.4)"/>
+                  <circle cx="36" cy="34" r="2" fill="#14a085"/><rect x="40" y="32.5" width="22" height="2.5" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="36" cy="41" r="2" fill="#14a085"/><rect x="40" y="39.5" width="18" height="2.5" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="36" cy="48" r="2" fill="#e8b44b"/><rect x="40" y="46.5" width="20" height="2.5" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="36" cy="55" r="2" fill="rgba(255,255,255,0.3)"/><rect x="40" y="53.5" width="24" height="2.5" rx="1" fill="rgba(255,255,255,0.2)"/>
+                  <!-- Person icon -->
+                  <circle cx="15" cy="30" r="6" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                  <text x="15" y="33" text-anchor="middle" font-size="8">👤</text>
+                  <line x1="21" y1="33" x2="28" y2="37" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="2,2"/>
+                </svg>
+                <div class="acc-img-label">Field Surveys &amp; Data</div>
+              </div>
+            </div>
+            <ul class="accordion-points">
+              <li>Primary data collection through structured field surveys across all sectors</li>
+              <li>Household and enterprise surveys for socio-economic profiling</li>
+              <li>Collaboration with Pondicherry University for academic rigour</li>
+              <li>Digital data collection using mobile and tablet-based tools</li>
+              <li>Regular data validation and quality assurance protocols</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <div class="accordion-num">04</div>
+          <div class="accordion-title">Academic Partnership Programme</div>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <div class="accordion-image acc-img-4">
+              <div class="acc-svg-wrap">
+                <svg width="100" height="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                  <!-- University building -->
+                  <rect x="30" y="35" width="40" height="32" rx="2" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                  <polygon points="50,18 22,35 78,35" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                  <rect x="44" y="45" width="12" height="20" rx="1" fill="rgba(255,255,255,0.15)"/>
+                  <rect x="33" y="42" width="8" height="8" rx="1" fill="rgba(255,255,255,0.15)"/>
+                  <rect x="59" y="42" width="8" height="8" rx="1" fill="rgba(255,255,255,0.15)"/>
+                  <circle cx="50" cy="12" r="5" fill="#e8b44b" opacity="0.9"/>
+                  <!-- Connection lines -->
+                  <circle cx="14" cy="55" r="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                  <circle cx="86" cy="55" r="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                  <line x1="20" y1="55" x2="30" y2="55" stroke="rgba(232,180,75,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+                  <line x1="70" y1="55" x2="80" y2="55" stroke="rgba(232,180,75,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+                  <text x="14" y="58" text-anchor="middle" font-size="7">🎓</text>
+                  <text x="86" y="58" text-anchor="middle" font-size="7">🔬</text>
+                </svg>
+                <div class="acc-img-label">Academic Partnerships</div>
+              </div>
+            </div>
+            <ul class="accordion-points">
+              <li>Pondicherry University designated as Lead Knowledge Institution</li>
+              <li>MoUs with reputed national research organisations and think tanks</li>
+              <li>Joint thematic studies and commissioned research</li>
+              <li>Faculty and researcher engagement in SIT working groups</li>
+              <li>Student internship and fellowship programmes with SIT</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <div class="accordion-num">05</div>
+          <div class="accordion-title">Thematic Studies &amp; Research</div>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <div class="accordion-image acc-img-5">
+              <div class="acc-svg-wrap">
+                <svg width="100" height="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Report stacks -->
+                  <rect x="8" y="28" width="30" height="40" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                  <rect x="12" y="36" width="22" height="2.5" rx="1" fill="#e8b44b" opacity="0.8"/>
+                  <rect x="12" y="42" width="18" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="12" y="47" width="20" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="12" y="52" width="15" height="2" rx="1" fill="rgba(255,255,255,0.2)"/>
+                  <rect x="36" y="20" width="30" height="48" rx="3" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                  <rect x="40" y="28" width="22" height="3" rx="1" fill="#14a085" opacity="0.9"/>
+                  <rect x="40" y="35" width="18" height="2" rx="1" fill="rgba(255,255,255,0.35)"/>
+                  <rect x="40" y="40" width="20" height="2" rx="1" fill="rgba(255,255,255,0.35)"/>
+                  <rect x="40" y="45" width="16" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+                  <rect x="40" y="50" width="18" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+                  <rect x="70" y="30" width="22" height="38" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                  <rect x="73" y="38" width="16" height="2.5" rx="1" fill="#c8922a" opacity="0.8"/>
+                  <rect x="73" y="44" width="13" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+                  <rect x="73" y="49" width="14" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+                </svg>
+                <div class="acc-img-label">Research &amp; Publications</div>
+              </div>
+            </div>
+            <ul class="accordion-points">
+              <li>In-depth sector-specific analytical reports for all 8 priority areas</li>
+              <li>Comparative studies benchmarking Puducherry against best-performing UTs</li>
+              <li>Policy brief series for rapid dissemination to decision-makers</li>
+              <li>Annual State of Puducherry report covering multi-sectoral progress</li>
+              <li>Working paper series for academic and policy discourse</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">
+          <div class="accordion-num">06</div>
+          <div class="accordion-title">Monitoring &amp; Evaluation Framework</div>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <div class="accordion-image acc-img-6">
+              <div class="acc-svg-wrap">
+                <svg width="110" height="80" viewBox="0 0 110 80" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Line chart -->
+                  <rect x="8" y="10" width="94" height="58" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                  <!-- Grid lines -->
+                  <line x1="16" y1="25" x2="96" y2="25" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                  <line x1="16" y1="38" x2="96" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                  <line x1="16" y1="51" x2="96" y2="51" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                  <!-- Trend line -->
+                  <polyline points="16,55 32,48 48,42 64,32 80,25 96,18" fill="none" stroke="#14a085" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Data dots -->
+                  <circle cx="16" cy="55" r="3" fill="#e8b44b"/><circle cx="32" cy="48" r="3" fill="#e8b44b"/><circle cx="48" cy="42" r="3" fill="#e8b44b"/><circle cx="64" cy="32" r="3" fill="#e8b44b"/><circle cx="80" cy="25" r="3" fill="#e8b44b"/><circle cx="96" cy="18" r="3" fill="#e8b44b"/>
+                  <!-- Target line -->
+                  <line x1="16" y1="20" x2="96" y2="20" stroke="rgba(232,180,75,0.4)" stroke-width="1" stroke-dasharray="4,3"/>
+                  <text x="98" y="22" font-size="6" fill="rgba(232,180,75,0.6)">TARGET</text>
+                </svg>
+                <div class="acc-img-label">M&amp;E Framework</div>
+              </div>
+            </div>
+            <ul class="accordion-points">
+              <li>Comprehensive M&amp;E framework across all 8 priority sectors</li>
+              <li>KPI tracking aligned with Viksit Bharat @2047 goals</li>
+              <li>Outcome-based reporting for Planning &amp; Research Department</li>
+              <li>Quarterly review mechanism with senior government leadership</li>
+              <li>Continuous learning loop for policy refinement and course correction</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer class="site-footer" style="background:#060f1e;"><div class="footer-disclaimer"><div class="footer-disclaimer-inner"><span class="disclaimer-icon">⚠️</span><div class="disclaimer-text"><strong>Disclaimer:</strong> This website is maintained by SIT, Planning and Research Department, Government of Puducherry. Information is for general purposes only.</div></div></div><div class="footer-bottom"><div class="footer-bottom-inner"><p>© 2025 State Institute for Transformation, Puducherry. All rights reserved.</p><div class="footer-badges"><span class="footer-badge">NITI Aayog SSM</span><span class="footer-badge">Govt. of Puducherry</span></div></div></div></footer>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-wrapper" style="padding-top:95px;">
+    <div class="section-header">
+      <div class="section-tag">Knowledge &amp; Research</div>
+      <h2 class="section-title">Publications &amp; Reports</h2>
+      <p class="section-desc">Evidence-based knowledge products supporting policy innovation and governance in Puducherry.</p>
+    </div>
+    <div class="pub-filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Policy Brief</button>
+      <button class="filter-btn">Research Report</button>
+      <button class="filter-btn">Data Analysis</button>
+      <button class="filter-btn">Annual Report</button>
+    </div>
+    <div class="pub-grid">
+      <div class="pub-card"><div class="pub-top"><div class="pub-icon-large">📑</div><span class="pub-type-tag">POLICY BRIEF</span></div><div class="pub-body"><div class="pub-meta">2025 · Economics &amp; Finance</div><div class="pub-title">Fiscal Roadmap for Puducherry: Revenue Enhancement Strategies</div><p class="pub-excerpt">An analysis of revenue generation avenues and fiscal consolidation pathways for the Union Territory.</p><a href="#" class="pub-link">Read More →</a></div></div>
+      <div class="pub-card"><div class="pub-top"><div class="pub-icon-large">🔍</div><span class="pub-type-tag">RESEARCH REPORT</span></div><div class="pub-body"><div class="pub-meta">2025 · Tourism</div><div class="pub-title">Tourism Potential Assessment of Puducherry UT</div><p class="pub-excerpt">Comprehensive study on tourism infrastructure, heritage assets, and sustainable development opportunities.</p><a href="#" class="pub-link">Read More →</a></div></div>
+      <div class="pub-card"><div class="pub-top"><div class="pub-icon-large">📊</div><span class="pub-type-tag">DATA ANALYSIS</span></div><div class="pub-body"><div class="pub-meta">2025 · Education</div><div class="pub-title">Social Sector Indicators Dashboard: Education Outcomes 2024</div><p class="pub-excerpt">Statistical analysis of learning outcomes, enrolment trends, and infrastructure gaps in Puducherry schools.</p><a href="#" class="pub-link">Read More →</a></div></div>
+      <div class="pub-card"><div class="pub-top"><div class="pub-icon-large">🌿</div><span class="pub-type-tag">POLICY BRIEF</span></div><div class="pub-body"><div class="pub-meta">2025 · Climate &amp; Environment</div><div class="pub-title">Climate Vulnerability Assessment: Coastal Puducherry</div><p class="pub-excerpt">Mapping climate risks and recommending adaptation strategies for Puducherry's coastal ecosystems.</p><a href="#" class="pub-link">Read More →</a></div></div>
+      <div class="pub-card"><div class="pub-top"><div class="pub-icon-large">💡</div><span class="pub-type-tag">RESEARCH REPORT</span></div><div class="pub-body"><div class="pub-meta">2025 · Technology &amp; Entrepreneurship</div><div class="pub-title">Startup Ecosystem Mapping: Puducherry Innovation Landscape</div><p class="pub-excerpt">Survey-based study of startup activity, incubators, and entrepreneurship potential in the UT.</p><a href="#" class="pub-link">Read More →</a></div></div>
+      <div class="pub-card"><div class="pub-top"><div class="pub-icon-large">🏛️</div><span class="pub-type-tag">ANNUAL REPORT</span></div><div class="pub-body"><div class="pub-meta">2025 · SIT</div><div class="pub-title">SIT Puducherry: Annual Progress Report 2024–25</div><p class="pub-excerpt">Comprehensive overview of SIT's activities, milestones, initiatives, and roadmap for the upcoming year.</p><a href="#" class="pub-link">Read More →</a></div></div>
+    </div>
+  </div>
+  <footer class="site-footer"><div class="footer-disclaimer"><div class="footer-disclaimer-inner"><span class="disclaimer-icon">⚠️</span><div class="disclaimer-text"><strong>Disclaimer:</strong> All publications are prepared by SIT, Puducherry, and its knowledge partners. Views expressed in reports and policy briefs are those of the authors and do not necessarily represent the official position of the Government of Puducherry or NITI Aayog.</div></div></div><div class="footer-bottom"><div class="footer-bottom-inner"><p>© 2025 State Institute for Transformation, Puducherry. All rights reserved.</p><div class="footer-badges"><span class="footer-badge">NITI Aayog SSM</span><span class="footer-badge">Govt. of Puducherry</span></div></div></div></footer>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrapper" style="padding-top:95px;">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="section-tag">Get in Touch</div>
+        <h2>Connect with SIT Puducherry</h2>
+        <p>We welcome queries, collaborations, and partnerships from government departments, academic institutions, researchers, and civil society organisations committed to Puducherry's transformation.</p>
+        <div class="contact-cards">
+          <div class="contact-card"><div class="contact-card-icon teal">📍</div><div class="contact-card-text"><strong>Address</strong><span>Planning &amp; Research Department, Govt. of Puducherry – 605 001</span></div></div>
+          <div class="contact-card"><div class="contact-card-icon gold">📧</div><div class="contact-card-text"><strong>Email</strong><span>sit.puducherry@gov.in</span></div></div>
+          <div class="contact-card"><div class="contact-card-icon navy">📞</div><div class="contact-card-text"><strong>Phone</strong><span>+91-413-XXXXXXX</span></div></div>
+          <div class="contact-card"><div class="contact-card-icon teal">🕐</div><div class="contact-card-text"><strong>Office Hours</strong><span>Monday – Friday: 9:30 AM – 5:30 PM</span></div></div>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <h3>Send a Message</h3>
+        <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" placeholder="First name"></div><div class="form-group"><label>Last Name</label><input type="text" placeholder="Last name"></div></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Organisation</label><input type="text" placeholder="Department / Institution / Organisation"></div>
+        <div class="form-group"><label>Subject</label><select><option value="">Select a subject</option><option>General Enquiry</option><option>Research Collaboration</option><option>Data / Publication Request</option><option>Partnership Proposal</option><option>Media / Press</option><option>Other</option></select></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Describe your query or proposal..."></textarea></div>
+        <button class="submit-btn" onclick="handleSubmit()">Send Message ✉️</button>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand"><div class="footer-logo"><svg width="34" height="34" viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="#0a1628"/><circle cx="60" cy="60" r="57" fill="none" stroke="#e8b44b" stroke-width="1.5" stroke-dasharray="6,3"/><text x="60" y="67" text-anchor="middle" font-family="Georgia,serif" font-weight="900" font-size="26" fill="#e8b44b">SIT</text></svg><div class="logo-text"><strong>State Institute for Transformation</strong><span>Puducherry UT</span></div></div><p>Established under NITI Aayog's State Support Mission, functioning under the Planning and Research Department, Government of Puducherry.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><ul><li><a onclick="showSection('home')">Home</a></li><li><a onclick="showSection('about')">About Us</a></li><li><a onclick="showSection('sectors')">Sectors</a></li><li><a onclick="showSection('initiatives')">Initiatives</a></li><li><a onclick="showSection('publications')">Publications</a></li></ul></div>
+      <div class="footer-col"><h4>Information</h4><ul><li><a>RTI</a></li><li><a>Privacy Policy</a></li><li><a>Terms of Use</a></li><li><a>Accessibility</a></li><li><a>Site Map</a></li></ul></div>
+      <div class="footer-col"><h4>Links</h4><ul><li><a>NITI Aayog</a></li><li><a>Govt. of Puducherry</a></li><li><a>Pondicherry University</a></li><li><a>Planning &amp; Research Dept.</a></li></ul></div>
+      <div class="footer-qr"><h4>Scan QR</h4><div class="qr-box"><div id="qrcode2"></div></div><div class="qr-label">Scan to visit<br>SIT Puducherry</div></div>
+    </div>
+    <div class="footer-disclaimer"><div class="footer-disclaimer-inner"><span class="disclaimer-icon">⚠️</span><div class="disclaimer-text"><strong>Disclaimer:</strong> This website is published and maintained by the State Institute for Transformation (SIT), Planning and Research Department, Government of Puducherry. The information provided is intended for general informational purposes only. While every effort has been made to ensure accuracy and completeness, SIT does not warrant the reliability of the content. The Government of Puducherry reserves the right to modify or withdraw information at any time without notice. External links do not constitute endorsement by SIT or the Government of Puducherry. For official policy documents and notifications, please refer to the Gazette of Puducherry or contact the relevant department directly.</div></div></div>
+    <div class="footer-bottom"><div class="footer-bottom-inner"><p>© 2025 State Institute for Transformation, Puducherry. All rights reserved. Last Updated: March 2025</p><div class="footer-badges"><span class="footer-badge">NITI Aayog SSM</span><span class="footer-badge">Govt. of Puducherry</span><span class="footer-badge">Viksit Bharat @2047</span></div></div></div>
+  </footer>
+</section>
+
+<script>
+const sections=['home','about','sectors','initiatives','publications','contact'];
+
+function showSection(id){
+  sections.forEach(s=>{
+    const el=document.getElementById(s);
+    el.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const idx=sections.indexOf(id);
+  const links=document.querySelectorAll('.nav-links a');
+  if(links[idx])links[idx].classList.add('active');
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');}
+
+function toggleAcc(header){
+  const body=header.nextElementSibling;
+  const isOpen=header.classList.contains('open');
+  document.querySelectorAll('.accordion-header').forEach(h=>h.classList.remove('open'));
+  document.querySelectorAll('.accordion-body').forEach(b=>b.classList.remove('open'));
+  if(!isOpen){header.classList.add('open');body.classList.add('open');}
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+function handleSubmit(){
+  const btn=document.querySelector('.submit-btn');
+  btn.textContent='✅ Message Sent!';
+  btn.style.background='linear-gradient(135deg,#2e7d32,#43a047)';
+  setTimeout(()=>{btn.textContent='Send Message ✉️';btn.style.background='';},3000);
+}
+
+// Generate QR codes after load
+window.addEventListener('load',function(){
+  const url='https://sit.puducherry.gov.in';
+  const cfg={text:url,width:94,height:94,colorDark:'#0a1628',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H};
+  try{new QRCode(document.getElementById('qrcode'),cfg);}catch(e){}
+  try{new QRCode(document.getElementById('qrcode2'),cfg);}catch(e){}
+});
+</script>
+</body>
+</html>
